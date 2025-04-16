@@ -25,6 +25,20 @@ A RESTful API built with Express.js, TypeScript, and Firestore for user authenti
    npm run dev
    ```
 
+## 🏗️ Build
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+This will compile the TypeScript code into JavaScript in the `dist` directory. After building, you can start the production server with:
+
+```bash
+npm start
+```
+
 ## 📚 API Documentation
 
 ### 🔐 Authentication Endpoints

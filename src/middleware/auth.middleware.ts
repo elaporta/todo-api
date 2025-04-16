@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 // services
 import { AuthService } from '../services/auth.service';
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'No token provided' });

@@ -1,5 +1,5 @@
 // interfaces
-import { JwtPayload } from './jwtPayload';
+import { JwtPayload } from './jwt-payload.interface';
 
 declare global {
   namespace Express {
@@ -7,4 +7,4 @@ declare global {
       user?: JwtPayload;
     }
   }
-} 
+}
