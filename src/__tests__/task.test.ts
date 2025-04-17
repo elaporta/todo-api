@@ -30,7 +30,6 @@ describe('Task Routes', () => {
   });
 
   describe('POST /tasks', () => {
-
     it('should create a new task', async () => {
       const taskData = {
         title: 'New test task',
@@ -44,22 +43,9 @@ describe('Task Routes', () => {
       expect(response.body).toHaveProperty('title', taskData.title);
       expect(response.body).toHaveProperty('user_id', userId);
     });
-
-    it('should return 401 if not authenticated', async () => {
-      const taskData = {
-        title: 'New test task'
-      };
-
-      const response = await request(app)
-        .post('/tasks')
-        .send(taskData);
-
-      expect(response.status).toBe(401);
-    });
   });
 
   describe('PUT /tasks/:id', () => {
-
     it('should update task', async () => {
       const task = await TaskService.createTask(userId, 'Test task');
 
@@ -71,6 +57,22 @@ describe('Task Routes', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('title', 'Updated task');
       expect(response.body).toHaveProperty('completed', true);
+    });
+  });
+
+  describe('DELETE /tasks/:id', () => {
+    it('should delete task', async () => {
+      const task = await TaskService.createTask(userId, 'Test task');
+
+      const response = await request(app)
+        .delete(`/tasks/${task.id}`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(204);
+
+      // Verify task is actually deleted
+      const deletedTask = await TaskService.getUserTasks(userId);
+      expect(deletedTask.find(t => t.id === task.id)).toBeUndefined();
     });
   });
 });

@@ -27,11 +27,17 @@ A RESTful API built with Express.js, TypeScript, and Firestore for user authenti
 
 ## 🏗️ Build
 
-To build the project for production:
+To build the project for production, follow these steps:
 
-```bash
-npm run build
-```
+1. Build the TypeScript code:
+   ```bash
+   npm run build
+   ```
+
+2. Copy the environment file to dist:
+   ```bash 
+   cp .env dist/
+   ```
 
 This will compile the TypeScript code into JavaScript in the `dist` directory. After building, you can start the production server with:
 
@@ -70,6 +76,10 @@ npm start
 - **PUT** `/tasks/:id`
 - **Headers**: `Authorization: Bearer <token>`
 - **Body**: `{ "title": "Updated title", "completed": true }`
+
+#### Delete Task
+- **DELETE** `/tasks/:id`
+- **Headers**: `Authorization: Bearer <token>`
 
 ## 🧪 Testing
 

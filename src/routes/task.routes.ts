@@ -49,4 +49,16 @@ router.put('/:id', [authenticate, ...updateTaskValidation], async (req: Request,
   }
 });
 
+router.delete('/:id', authenticate, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await TaskService.deleteTask(id, req.user!.userId);
+
+    res.status(204).send();
+  }
+  catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 export default router;

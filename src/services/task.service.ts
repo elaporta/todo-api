@@ -53,4 +53,16 @@ export class TaskService {
 
     return updatedTask;
   }
+
+  static async deleteTask(taskId: string, userId: string): Promise<void> {
+    const taskDoc = await db.collection(TASKCOLLECTION).doc(taskId).get();
+    
+    if (!taskDoc.exists) throw new Error('Task not found');
+
+    const task = taskDoc.data() as Task;
+
+    if (task.user_id !== userId) throw new Error('Unauthorized');
+
+    await db.collection(TASKCOLLECTION).doc(taskId).delete();
+  }
 }
